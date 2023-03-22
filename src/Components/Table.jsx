@@ -18,15 +18,50 @@ const table = () => {
             }
             setGameData(dayGameLogs)
             console.dir(dayGameLogs, {depth: null})
-            console.log(dayGameLogs[0][0].player.first_name)
         }
         getDayGames('2023-03-16')
     }, [])
 
-
     return (
         <div>
-          {gameData.length > 0 && <p>{gameData[0][0].player.first_name + ' ' + gameData[0][0].player.last_name}</p>}
+          {gameData.length > 0 && 
+          <table>
+            <thead>
+                <tr>
+                    <th>Player</th>
+                    <th>Minutes</th>
+                    <th>Points</th>
+                    <th>Rebounds</th>
+                    <th>Assists</th>
+                    <th>Steals</th>
+                    <th>Blocks</th>
+                    <th>Turnovers</th>
+                    <th>Fantasy Score</th>
+                </tr>
+            </thead>
+                <tbody>
+                    {gameData.map((game, index) => (
+                    <tr key={index}>
+                        {game.map((player, index) => (
+                        <React.Fragment key={index}>
+                            <td>{player.player.first_name} {player.player.last_name}</td>
+                            <td>{player.min}</td>
+                            <td>{player.pts}</td>
+                            <td>{player.reb}</td>
+                            <td>{player.ast}</td>
+                            <td>{player.stl}</td>
+                            <td>{player.blk}</td>
+                            <td>{player.turnover}</td>
+                            <td>
+                                {player.pts + player.reb * 1.2 + player.ast * 1.5 + player.stl * 3 + player.blk * 3 - player.turnover}
+                            </td>
+                        </React.Fragment>
+                        ))}
+                    </tr>
+                    ))}
+                </tbody>
+            </table>
+            }
         </div>
       )
       
