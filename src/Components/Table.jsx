@@ -1,4 +1,5 @@
 import React, {useState, useEffect} from 'react'
+import './table.css'
 
 const table = () => {
     const [gameData, setGameData] = useState([])
@@ -19,9 +20,9 @@ const table = () => {
             setGameData(dayGameLogs)
             console.dir(dayGameLogs, {depth: null})
         }
-        getDayGames('2023-03-16')
+        getDayGames('2023-03-17')
     }, [])
-
+    
     return (
         <div>
           {gameData.length > 0 && 
@@ -40,10 +41,8 @@ const table = () => {
                 </tr>
             </thead>
                 <tbody>
-                    {gameData.map((game, index) => (
-                    <tr key={index}>
-                        {game.map((player, index) => (
-                        <React.Fragment key={index}>
+                    {gameData.flat().map((player, index) => (
+                        <tr key={index}>
                             <td>{player.player.first_name} {player.player.last_name}</td>
                             <td>{player.min}</td>
                             <td>{player.pts}</td>
@@ -53,18 +52,15 @@ const table = () => {
                             <td>{player.blk}</td>
                             <td>{player.turnover}</td>
                             <td>
-                                {player.pts + player.reb * 1.2 + player.ast * 1.5 + player.stl * 3 + player.blk * 3 - player.turnover}
+                                {(player.pts + player.reb * 1.2 + player.ast * 1.5 + player.stl * 3 + player.blk * 3 - player.turnover).toFixed(1)}
                             </td>
-                        </React.Fragment>
+                        </tr>
                         ))}
-                    </tr>
-                    ))}
                 </tbody>
             </table>
             }
         </div>
       )
-      
   }  
 
 export default table
