@@ -31,9 +31,8 @@ form {
 }
 
 button {
-    /* background-color: #4CAF50; */
-    border: none;
-    /* color: white; */
+    background-color: #ffffff;
+    border: 1px solid #aaa;
     padding: 0.5rem 1rem;
     text-align: center;
     text-decoration: none;
