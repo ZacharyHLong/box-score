@@ -1,0 +1,4 @@
+.date-box {
+    display: flex;
+    flex-direction: row;
+}

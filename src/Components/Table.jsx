@@ -1,13 +1,15 @@
 import React, {useState, useEffect} from 'react'
 import DateSelector from './DateSelector'
-import './table.css'
+import './Table.css'
 
 const table = () => {
     const [selectedDate, setSelectedDate] = useState('')
     const [gameData, setGameData] = useState([])
+    const [loading, setLoading] = useState(false)
 
     useEffect(() => {
         async function getDayGames(date) {
+            setLoading(true)
             const response = await fetch(`https://www.balldontlie.io/api/v1/games/?start_date=${date}&end_date=${date}`);
             const data = await response.json()
             const ids = data.data.map(game => game.id)
@@ -27,7 +29,7 @@ const table = () => {
                 dayGameLogs.push(newData1)
             }
             setGameData(dayGameLogs)
-            // console.dir(dayGameLogs, {depth: null})
+            setLoading(false)
         }
         if (selectedDate !== '') {
             getDayGames(selectedDate)
@@ -50,7 +52,9 @@ const table = () => {
             <p>A tool to check statlines from previous days in NBA history</p>
             <DateSelector selectedDate={selectedDate} onDateChange={handleDateChange}/>
             <div className="table-container">
-            {gameData.length > 0 && 
+            {loading ? ( 
+                <p>Loading...</p>
+            ) : gameData.length > 0 && 
             <table className="data-table">
                 <thead>
                     <tr>
