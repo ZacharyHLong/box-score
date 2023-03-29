@@ -48,9 +48,11 @@ const table = () => {
 
     return (
         <div>
-            <h1>On this day in the NBA</h1>
-            <p>A tool to check statlines from previous days in NBA history</p>
-            <DateSelector selectedDate={selectedDate} onDateChange={handleDateChange}/>
+            <div className="header-container">
+                <h1>On This Day</h1>
+                <p>A tool to check fantasy statlines from previous days in NBA history.</p>
+                <DateSelector selectedDate={selectedDate} onDateChange={handleDateChange}/>
+            </div>
             <div className="table-container">
             {loading ? ( 
                 <p>Loading...</p>
